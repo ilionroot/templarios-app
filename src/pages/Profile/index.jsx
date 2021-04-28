@@ -33,7 +33,7 @@ const Profile = (props) => {
       setProfile(user);
       setLoading(false);
     })();
-  });
+  }, [userId]);
 
   return loading ? (
     <Loading />

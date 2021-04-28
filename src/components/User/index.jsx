@@ -33,7 +33,7 @@ const User = ({ user, isCurrentUser }) => {
       console.log(memes);
       setMemes(memes);
     })();
-  });
+  }, [user._id]);
 
   return (
     <Container>

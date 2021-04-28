@@ -32,7 +32,7 @@ const MemePage = () => {
       setMeme(meme);
       setLoading(false);
     })();
-  });
+  }, [id]);
 
   return loading ? (
     <Loading />
