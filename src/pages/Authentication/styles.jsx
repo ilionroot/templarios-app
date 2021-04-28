@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const LoginForm = styled.form`
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
