@@ -1,0 +1,19 @@
+.loader {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.5);
+}
+
+.loader::before {
+  content: "";
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: hsl(90, 100%, 50%);
+  -webkit-animation: testAnimacion 2.5s ease-in-out infinite alternate-reverse;
+  animation: testAnimacion 2.5s ease-in-out infinite alternate-reverse;
+}
