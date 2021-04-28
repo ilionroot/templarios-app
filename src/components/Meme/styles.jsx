@@ -22,10 +22,16 @@ export const MemeUser = styled.div`
     width: 2.5rem;
     height: 2.5rem;
     margin: 15px;
-    margin-top: 1.8rem;
+    margin-top: 1.5rem;
     object-fit: cover;
     margin-bottom: 25px;
+    border: 3px solid;
     border-radius: 50%;
+
+    border-top: 3px solid purple;
+    border-right: 3px solid red;
+    border-bottom: 3px solid yellow;
+    border-left: 3px solid green;
   }
 `;
 

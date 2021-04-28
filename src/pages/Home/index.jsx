@@ -4,7 +4,6 @@ import Meme from "../../components/Meme";
 import Loading from "../../components/Loading";
 
 import { Container } from "./styles";
-import templateUser from "../../assets/user.png";
 
 import { api } from "../../services/api";
 
@@ -34,7 +33,7 @@ const Home = () => {
             key={meme._id}
             memeId={meme._id}
             userId={meme.id_user}
-            userImg={meme.userImg ? meme.userImg : templateUser}
+            userImg={meme.userImg}
             user={meme.user}
             filename={meme.src}
             description={meme.description}

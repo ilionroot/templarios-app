@@ -58,9 +58,11 @@ const User = ({ user, isCurrentUser }) => {
           </LogOutButton>
         )}
       </ProfileInfo>
-      <h2>
-        Memes <b onClick={addMeme}>+</b>
-      </h2>
+      {isCurrentUser && (
+        <h2>
+          Memes <b onClick={addMeme}>+</b>
+        </h2>
+      )}
       <MemesGrid>
         {memes.map((meme) => {
           return (
