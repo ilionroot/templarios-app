@@ -14,19 +14,19 @@ export const LoginForm = styled.form`
   justify-content: center;
 
   h1 {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
   }
 
   input,
   button,
   label {
-    margin: 15px;
+    margin: 12.5px;
   }
 
   input {
-    padding: 15px;
-    width: 75%;
-    font-size: 1.5rem;
+    padding: 12.5px;
+    width: 65%;
+    font-size: 1.25rem;
     border: 5px solid;
     border-image: linear-gradient(
         to right,
@@ -61,7 +61,7 @@ export const LoginForm = styled.form`
     font-size: 25px;
     color: rgba(0, 0, 0, 0.75);
     align-self: flex-start;
-    margin-left: 1.75rem;
+    margin-left: 2rem;
   }
 
   button {
