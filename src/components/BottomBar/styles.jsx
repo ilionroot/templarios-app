@@ -9,6 +9,7 @@ export const Container = styled.div`
   position: fixed;
   bottom: 0;
   box-shadow: 0 0 25px -15px black;
+  z-index: 0;
 `;
 
 export const TabButton = styled.div`

@@ -33,11 +33,7 @@ const Meme = (props) => {
       <Link to={`/profile/${props.userId}`}>
         <MemeUser>
           <img
-            src={
-              props.userImg
-                ? `${api.defaults.baseURL}/public/uploads/${props.userImg}`
-                : templateUser
-            }
+            src={props.userImg ? props.userImg : templateUser}
             alt={props.user}
           />
           <b>{props.user}</b>
@@ -46,11 +42,7 @@ const Meme = (props) => {
       <Link to={`/meme/${props.memeId}`}>
         <MemeMedia>
           <img
-            src={
-              props.filename
-                ? `${api.defaults.baseURL}/public/uploads/${props.filename}`
-                : templateMeme
-            }
+            src={props.filename ? props.filename : templateMeme}
             alt={props.user}
           />
         </MemeMedia>

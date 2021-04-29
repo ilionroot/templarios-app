@@ -4,6 +4,7 @@ import { Container, PreviewImage } from "./styles";
 
 import addFile from "../../assets/addFile.png";
 import xIcon from "../../assets/xIcon.png";
+import Loading from "../../components/Loading";
 
 import { api } from "../../services/api";
 
@@ -24,6 +25,7 @@ const Upload = () => {
   const [description, setDescription] = useState("");
   const [preview, setPreview] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
+  const [onProcess, setOnProcess] = useState(false);
 
   const history = useHistory();
 
@@ -43,6 +45,7 @@ const Upload = () => {
   };
 
   const post = async (e) => {
+    setOnProcess(true);
     e.preventDefault();
 
     const formData = new FormData();
@@ -61,7 +64,11 @@ const Upload = () => {
       .then((response) => {
         history.push("/");
       })
-      .catch((err) => alert("Error: Server 500"));
+      .catch((err) => {
+        alert("Error: Server 500");
+      });
+
+    setOnProcess(false);
   };
 
   return (
@@ -81,7 +88,14 @@ const Upload = () => {
           />
         </>
       )}
-      <input type="file" onChange={showPreview} hidden name="file" id="file" />
+      <input
+        type="file"
+        required
+        onChange={showPreview}
+        hidden
+        name="file"
+        id="file"
+      />
       <label htmlFor="description">Descrição</label>
       <textarea
         maxLength={250}
@@ -90,8 +104,16 @@ const Upload = () => {
         cols="30"
         rows="10"
         onChange={(e) => setDescription(e.target.value)}
+        placeholder="Digite uma descrição..."
+        required
       ></textarea>
-      <button type="submit">Postar</button>
+      {onProcess ? (
+        <div className="overAll">
+          <Loading center />
+        </div>
+      ) : (
+        <button type="submit">Postar</button>
+      )}
     </Container>
   );
 };

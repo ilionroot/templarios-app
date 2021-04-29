@@ -14,7 +14,7 @@ export const Container = styled.form`
   }
 
   label {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 50px;
   }
 
@@ -33,9 +33,10 @@ export const Container = styled.form`
   }
 
   button {
-    width: 45%;
+    width: 90%;
     height: 4rem;
-    margin: 50px;
+    margin: 25px;
+    margin-bottom: 75px;
     background: linear-gradient(to right, red, purple, blue);
     border-radius: 5px;
     color: white;
@@ -48,6 +49,14 @@ export const Container = styled.form`
     &:hover {
       filter: brightness(1.5);
     }
+  }
+
+  .overAll {
+    width: 100vw;
+    height: calc(100vh - 9rem);
+    position: fixed;
+    top: 4rem;
+    background: rgba(255, 255, 255, 0.75);
   }
 `;
 

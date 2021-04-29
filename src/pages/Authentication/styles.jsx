@@ -11,20 +11,22 @@ export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 0.65rem;
+  overflow: hidden auto;
 
   h1 {
-    margin-bottom: 25px;
+    margin-bottom: 1.5rem;
   }
 
   input,
   button,
   label {
-    margin: 12.5px;
+    margin: 0.75rem;
   }
 
   input {
-    padding: 12.5px;
+    padding: 0.75rem;
     width: 65%;
     font-size: 1.25rem;
     border: 5px solid;
@@ -41,7 +43,7 @@ export const LoginForm = styled.form`
   }
 
   h1 {
-    font-size: 72px;
+    font-size: 5rem;
     background: linear-gradient(
       to right,
       red,
@@ -58,7 +60,7 @@ export const LoginForm = styled.form`
   }
 
   label {
-    font-size: 25px;
+    font-size: 1.5rem;
     color: rgba(0, 0, 0, 0.75);
     align-self: flex-start;
     margin-left: 2rem;
@@ -67,13 +69,14 @@ export const LoginForm = styled.form`
   button {
     background: limegreen;
     background: linear-gradient(to right, red, purple);
-    width: 75px;
-    height: 75px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
     transition: 0.1s ease;
     cursor: pointer;
 
@@ -85,15 +88,29 @@ export const LoginForm = styled.form`
       width: 35%;
     }
   }
+
+  #loader {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    div {
+      margin: 1.5rem;
+    }
+  }
 `;
 
 export const RegisterForm = styled.form`
   width: 100%;
-  height: auto;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 15px;
 
   input,
   button,
@@ -104,7 +121,7 @@ export const RegisterForm = styled.form`
   input {
     padding: 10px;
     width: 50%;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     border: 5px solid;
     border-image: linear-gradient(
         to right,
@@ -160,13 +177,13 @@ export const RegisterForm = styled.form`
   button {
     background: limegreen;
     background: linear-gradient(to right, red, purple);
-    width: 75px;
-    height: 75px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 2rem;
     transition: 0.1s ease;
     cursor: pointer;
 
@@ -182,5 +199,18 @@ export const RegisterForm = styled.form`
   span label img {
     margin: 0 20px 0 0;
     width: 150px;
+  }
+
+  #loader {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    div {
+      margin: 1.5rem;
+    }
   }
 `;

@@ -35,7 +35,7 @@ const MemePage = () => {
   }, [id]);
 
   return loading ? (
-    <Loading />
+    <Loading center />
   ) : (
     <>
       <Meme

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { Container, LoginForm, RegisterForm } from "./styles";
 import { useAuth } from "../../contexts/auth";
+import Loading from "../../components/Loading";
 
 import loginIcon from "../../assets/loginIcon.png";
 import addFile from "../../assets/addFile.png";
@@ -34,6 +35,7 @@ const Authentication = () => {
   const [email, setEmail] = useState("");
   const [preview, setPreview] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
+  const [onProcess, setOnProcess] = useState(false);
 
   const showPreview = (e) => {
     var file = new FileReader();
@@ -55,6 +57,7 @@ const Authentication = () => {
       {Number(isLogin) ? (
         <LoginForm
           onSubmit={async (e) => {
+            setOnProcess(true);
             await signIn(e, username, password)
               .then((res) => {
                 history.push("/");
@@ -71,6 +74,8 @@ const Authentication = () => {
                   alert("Usuário e/ou senha incorreto(s)!");
                 }
               });
+
+            setOnProcess(false);
           }}
         >
           <h1>Entrar</h1>
@@ -81,6 +86,7 @@ const Authentication = () => {
             name="username"
             id="username"
             placeholder="Digite seu usuário"
+            required
           />
           <label htmlFor="password">Senha:</label>
           <input
@@ -89,12 +95,20 @@ const Authentication = () => {
             name="password"
             id="password"
             placeholder="Digite sua senha"
+            required
           />
-          <button type="submit">
-            <img src={loginIcon} alt="Login" />
-          </button>
 
-          <Link style={{ margin: 15 }} to="/auth/0">
+          <div id="loader">
+            {onProcess ? (
+              <Loading scale={0.5} />
+            ) : (
+              <button type="submit">
+                <img src={loginIcon} alt="Login" />
+              </button>
+            )}
+          </div>
+
+          <Link style={{ margin: 0 }} to="/auth/0">
             Não tem uma conta? Registre-se aqui
           </Link>
         </LoginForm>
@@ -102,9 +116,10 @@ const Authentication = () => {
         <RegisterForm
           enctype="multipart/form-data"
           onSubmit={async (e) => {
+            setOnProcess(true);
+
             await signUp(e, username, password, cpassword, email)
               .then((res) => {
-                alert("Sucesso: Cadastro realizado!");
                 history.push("/");
               })
               .catch((err) => {
@@ -128,6 +143,8 @@ const Authentication = () => {
                   alert("Erro: Usuário já cadastrado!");
                 }
               });
+
+            setOnProcess(false);
           }}
         >
           <h1>Registrar</h1>
@@ -168,6 +185,7 @@ const Authentication = () => {
             name="username"
             id="username"
             placeholder="Digite seu usuário"
+            required
           />
           <span>
             <label htmlFor="password">Senha:</label>
@@ -180,6 +198,7 @@ const Authentication = () => {
               name="password"
               id="password"
               placeholder="Digite sua senha"
+              required
             />
             <input
               type="password"
@@ -187,6 +206,7 @@ const Authentication = () => {
               name="cpassword"
               id="cpassword"
               placeholder="Senha novamente"
+              required
             />
           </div>
           <label htmlFor="email" style={{ alignSelf: "center" }}>
@@ -199,11 +219,20 @@ const Authentication = () => {
             id="email"
             placeholder="Digite seu e-mail"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
-          <button type="submit">
-            <img src={loginIcon} alt="Login" />
-          </button>
-          <Link style={{ margin: 15 }} to="/auth/1">
+
+          <div id="loader">
+            {onProcess ? (
+              <Loading scale={0.5} />
+            ) : (
+              <button type="submit">
+                <img src={loginIcon} alt="Login" />
+              </button>
+            )}
+          </div>
+
+          <Link style={{ marginBottom: 125 }} to="/auth/1">
             Já tem uma conta? Faça log-in aqui
           </Link>
         </RegisterForm>

@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import homeIcon from "../../assets/anotherHomeIcon.png";
 import profileIcon from "../../assets/profileIcon.png";
 
+import { useAuth } from "../../contexts/auth";
+
 const BottomBar = () => {
+  const { user } = useAuth();
+
   return (
     <Container>
       <TabButton>
@@ -13,13 +17,7 @@ const BottomBar = () => {
         </Link>
       </TabButton>
       <TabButton>
-        <Link
-          to={`${
-            localStorage.getItem("$sex_user")
-              ? `/profile/${JSON.parse(localStorage.getItem("$sex_user"))._id}`
-              : "auth/1"
-          }`}
-        >
+        <Link to={`${user ? `/profile/${user._id}` : "auth/1"}`}>
           <img src={profileIcon} alt="Profile Tab" />
         </Link>
       </TabButton>
