@@ -54,6 +54,7 @@ export const MemesGrid = styled.div`
   width: 100%;
   height: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 125px;
 `;
 
 export const MemeLink = styled.div`
