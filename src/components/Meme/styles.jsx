@@ -44,7 +44,6 @@ export const MemeMedia = styled.div`
   overflow: hidden;
   position: absolute;
   top: 15%;
-  position: relative;
 
   img {
     width: 100%;
