@@ -70,7 +70,7 @@ const Meme = (props) => {
     const shareData = {
       title: "Sex Memes",
       text: "Olha esse meme que engraçadinhoKKK🤣️😂️😏️",
-      url: `${window.location.href}meme/${props.memeId}`,
+      url: `${window.location.href}meme/${props.memeId}?clickedOnLink=1`,
     };
 
     await navigator.share(shareData);
