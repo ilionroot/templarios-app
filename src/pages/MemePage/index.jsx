@@ -16,23 +16,26 @@ const backStyles = {
   cursor: "pointer",
 };
 
-const MemePage = () => {
+const MemePage = (props) => {
   const [meme, setMeme] = useState({});
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
   const { id } = useParams();
 
-  useEffect(() => {
-    (async () => {
-      const {
-        data: { meme },
-      } = await api.get(`${api.defaults.baseURL}/memes/one?id=${id}`);
+  useEffect(
+    (props) => {
+      (async () => {
+        const {
+          data: { meme },
+        } = await api.get(`${api.defaults.baseURL}/memes/one?id=${id}`);
 
-      setMeme(meme);
-      setLoading(false);
-    })();
-  }, [id]);
+        setMeme(meme);
+        setLoading(false);
+      })();
+    },
+    [id]
+  );
 
   return loading ? (
     <Loading center />
@@ -52,7 +55,12 @@ const MemePage = () => {
         style={backStyles}
         alt="Back Icon"
         src={backIcon}
-        onClick={history.goBack}
+        onClick={() => {
+          new URLSearchParams(window.location.search).get("clickedOnLink") ===
+          "1"
+            ? history.push("/")
+            : history.goBack();
+        }}
       />
     </>
   );

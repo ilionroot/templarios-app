@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, MemeDescription, MemeMedia, MemeUser } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Loading from "../Loading";
 
 import downloadIcon from "../../assets/download.png";

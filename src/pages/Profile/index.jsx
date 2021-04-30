@@ -46,20 +46,20 @@ const Profile = (props) => {
           setProfile(user);
           return setLoading(false);
         }
-
-        api
-          .get(`/user/${userId}`)
-          .then(({ data }) => {
-            getMemes();
-
-            setProfile(data.user);
-            setLoading(false);
-          })
-          .catch((err) => {
-            signOut();
-            history.push("/auth/1");
-          });
       }
+
+      api
+        .get(`/user/${userId}`)
+        .then(({ data }) => {
+          getMemes();
+
+          setProfile(data.user);
+          setLoading(false);
+        })
+        .catch((err) => {
+          signOut();
+          history.push("/auth/1");
+        });
     })();
   }, [user]);
 
