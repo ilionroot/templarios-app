@@ -69,8 +69,8 @@ const Meme = (props) => {
   const shareMeme = async () => {
     const shareData = {
       title: "Sex Memes",
-      text: "Olha esse meme que engraçadinhoKKK🤣️😂️😏️\n",
-      url: `${props.filename}`,
+      text: "Olha esse meme que engraçadinhoKKK🤣️😂️😏️\n\n",
+      url: `${window.location.href}meme/${props.memeId}`,
     };
 
     await navigator.share(shareData);
