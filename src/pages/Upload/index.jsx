@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Container, PreviewImage } from "./styles";
+import { Container, PreviewImage, PreviewVideo } from "./styles";
 
 import addFile from "../../assets/addFile.png";
 import xIcon from "../../assets/xIcon.png";
 import Loading from "../../components/Loading";
+import playIcon from "../../assets/playVideo.png";
 
 import { api } from "../../services/api";
 
@@ -26,6 +27,8 @@ const Upload = () => {
   const [preview, setPreview] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
   const [onProcess, setOnProcess] = useState(false);
+  const [isVideo, setIsVideo] = useState(false);
+  const [isPlayShowed, setIsPlayShowed] = useState(true);
 
   const history = useHistory();
 
@@ -36,9 +39,13 @@ const Upload = () => {
   };
 
   const showPreview = (e) => {
+    const filename = e.target.files[0].name.split(".")[
+      e.target.files[0].name.split(".").length - 1
+    ];
     var file = new FileReader();
     file.onload = function (k) {
       setPreview(true);
+      setIsVideo(isVideoVerify(filename));
       setPreviewContent(k.target.result);
     };
     file.readAsDataURL(e.target.files[0]);
@@ -71,6 +78,38 @@ const Upload = () => {
     setOnProcess(false);
   };
 
+  const isVideoVerify = (extension) => {
+    switch (extension) {
+      case "mp4":
+        return true;
+      case "webm":
+        return true;
+      case "mpeg4":
+        return true;
+      case "h.263":
+        return true;
+      case "h.264":
+        return true;
+      case "mov":
+        return true;
+      case "MOV":
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  const playAndPause = () => {
+    const video = document.querySelector("#video-preview");
+    if (video.paused) {
+      setIsPlayShowed(false);
+      return video.play();
+    }
+
+    setIsPlayShowed(true);
+    return video.pause();
+  };
+
   return (
     <Container enctype="multipart/form-data" onSubmit={post}>
       {!preview ? (
@@ -79,7 +118,19 @@ const Upload = () => {
         </label>
       ) : (
         <>
-          <PreviewImage alt="Preview" src={previewContent} />
+          {isVideo ? (
+            <div className="videoPreview">
+              <PreviewVideo onClick={playAndPause} id="video-preview" loop>
+                <source src={previewContent} />
+                Your browser does not support the video tag.
+              </PreviewVideo>
+              {isPlayShowed && (
+                <img src={playIcon} alt="Play" onClick={playAndPause} />
+              )}
+            </div>
+          ) : (
+            <PreviewImage alt="Preview" src={previewContent} />
+          )}
           <img
             style={cancellImageStyles}
             onClick={cancellImage}
@@ -91,6 +142,9 @@ const Upload = () => {
       <input
         type="file"
         required
+        accept="
+          image/png,image/jpg,image/jpeg,image/webp,video/mp4,video/mpeg4,video/H.263,video/H.264,video/webm,video/mov,video/MOV
+        "
         onChange={showPreview}
         hidden
         name="file"
@@ -101,8 +155,6 @@ const Upload = () => {
         maxLength={250}
         name="description"
         id="description"
-        cols="30"
-        rows="10"
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Digite uma descrição..."
         required

@@ -44,11 +44,39 @@ export const MemeMedia = styled.div`
   overflow: hidden;
   position: absolute;
   top: 15%;
+  position: relative;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .videoContainer {
+    video {
+      position: relative;
+      height: fit-content;
+    }
+    img {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  .bigPlay {
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+
+    transition: 0.1s ease;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0.5);
+    }
   }
 `;
 
@@ -64,6 +92,7 @@ export const MemeDescription = styled.div`
 
   img {
     width: 1rem;
+    height: 1rem;
     margin: 0 30px 0 30px;
     cursor: pointer;
   }
@@ -93,5 +122,10 @@ export const MemeDescription = styled.div`
     overflow: auto;
     mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
+  }
+  div {
+    width: auto;
+    display: flex;
+    align-self: center;
   }
 `;

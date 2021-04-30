@@ -42,6 +42,7 @@ const MemePage = () => {
         userImg={meme.userImg}
         userId={meme.id_user}
         user={meme.user}
+        isVideo={meme.isVideo}
         filename={meme.src}
         memeId={meme._id}
         description={meme.description}

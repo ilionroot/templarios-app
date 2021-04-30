@@ -13,6 +13,7 @@ import Loading from "../../components/Loading";
 import { useAuth } from "../../contexts/auth";
 
 import userImage from "../../assets/user.png";
+import playIcon from "../../assets/playVideo.png";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { LoadingMemes } from "../../pages/Home/styles";
@@ -31,6 +32,7 @@ const backStyles = {
 const Profile = (props) => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
+  const [userImageLoading, setUserImageLoading] = useState(true);
 
   const history = useHistory();
   const { userId } = useParams();
@@ -87,13 +89,17 @@ const Profile = (props) => {
   return loading ? (
     <Loading center />
   ) : user ? (
-    <Container
-      id="scrollableDiv"
-      // onScroll={(e) => console.log($(e.target).scrollTop())}
-      // ref={(ref) => setScrollParentRef(ref)}
-    >
+    <Container id="scrollableDiv">
       <ProfileInfo>
-        <img src={profile.img ? profile.img : userImage} alt="User" />
+        <img
+          src={profile.img ? profile.img : userImage}
+          alt="User"
+          style={{ display: userImageLoading ? "none" : "initial" }}
+          onLoad={() => {
+            setUserImageLoading(false);
+          }}
+        />
+        {userImageLoading && <Loading style={{ margin: 100 }} scale={1} />}
         <h1>{profile.username || "Username"}</h1>{" "}
         {profile._id === userId && (
           <LogOutButton
@@ -127,7 +133,17 @@ const Profile = (props) => {
           {memesS.map((meme) => {
             return (
               <Link key={meme._id} to={`/meme/${meme._id}`}>
-                <MemeLink url={meme.src} />
+                {meme.isVideo ? (
+                  <div className="video">
+                    <video muted="muted">
+                      <source src={meme.src} />
+                      Your browser does not support the video tag.
+                    </video>
+                    <img src={playIcon} alt="Play" />
+                  </div>
+                ) : (
+                  <MemeLink url={meme.src} />
+                )}
               </Link>
             );
           })}

@@ -19,16 +19,13 @@ export const Container = styled.form`
   }
 
   textarea {
-    min-width: 90%;
-    padding: 15px;
-    font-size: 1.25rem;
+    padding: 10px;
+    font-size: 1rem;
     width: 90%;
-    max-width: 90%;
-    min-height: 30%;
-    height: 30%;
-    max-height: 30%;
+    height: 25vh !important;
+    max-height: 31.75vh;
+    resize: vertical;
     border: 5px solid;
-    resize: none;
     border-image: linear-gradient(to right, red, orange, yellow, purple) 1;
   }
 
@@ -58,9 +55,45 @@ export const Container = styled.form`
     top: 4rem;
     background: rgba(255, 255, 255, 0.75);
   }
+
+  .videoPreview {
+    width: auto;
+    height: auto;
+    position: relative;
+
+    img {
+      position: absolute;
+      width: 4rem;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      filter: brightness(0.85);
+
+      transition: 0.1s ease;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(0.5);
+      }
+    }
+  }
 `;
 
 export const PreviewImage = styled.img`
+  width: 100%;
+  padding: 15px;
+  min-height: 0%;
+  height: 1%;
+  max-height: 35%;
+  border: 5px solid;
+  object-fit: contain;
+  object-position: bottom bottom;
+  border-image: linear-gradient(to right, red, green, blue, purple) 1;
+`;
+
+export const PreviewVideo = styled.video`
   width: 100%;
   padding: 15px;
   min-height: 0%;

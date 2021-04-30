@@ -26,6 +26,30 @@ export const Container = styled.div`
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       cursor: pointer;
+      z-index: 1;
+    }
+  }
+
+  .video {
+    position: relative;
+
+    video {
+      width: calc(100vw / 3.3);
+      height: calc(100vw / 3.3);
+      margin: 5px 5px 5px 3.25px;
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    img {
+      width: 1rem;
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
     }
   }
 `;
@@ -64,7 +88,7 @@ export const MemeLink = styled.div`
   background-size: cover;
   width: calc(100vw / 3.3);
   height: calc(100vw / 3.3);
-  margin: 5px 5px 5px 3.25px;
+  margin: 5px 5px 9.25px 3.25px;
   cursor: pointer;
   transition: 0.2s ease;
 
