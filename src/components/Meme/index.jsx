@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, MemeDescription, MemeMedia, MemeUser } from "./styles";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loading from "../Loading";
 
 import downloadIcon from "../../assets/download.png";
@@ -35,7 +35,7 @@ const Meme = (props) => {
   const [muted, setMuted] = useState(props.isVideoFirst | props.isVideoSecond);
   const [loading, setLoading] = useState(true);
   const [userImageLoading, setUserImageLoading] = useState(true);
-  const [isPlayShowed, setIsPlayShowed] = useState(true);
+  const [isPlayShowed, setIsPlayShowed] = useState(iOS() ? false : true);
 
   const downloadFile = () => {
     axios({
@@ -76,6 +76,21 @@ const Meme = (props) => {
     await navigator.share(shareData);
   };
 
+  function iOS() {
+    return (
+      [
+        "iPad Simulator",
+        "iPhone Simulator",
+        "iPod Simulator",
+        "iPad",
+        "iPhone",
+        "iPod",
+      ].includes(navigator.platform) ||
+      // iPad on iOS 13 detection
+      (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    );
+  }
+
   return (
     <Container>
       <Link to={`/profile/${props.userId}`}>
@@ -104,14 +119,14 @@ const Meme = (props) => {
                 }}
                 id="video-element"
                 loop={true}
-                muted={muted}
+                muted={iOS() ? !muted : muted}
                 style={{
                   display: !loading ? "initial" : "none",
                   width: "100%",
                   height: "100%",
                 }}
                 playsInline
-                autoPlay={false}
+                autoPlay={iOS() ? true : false}
               >
                 <source src={props.filename ? props.filename : templateMeme} />
                 Your browser does not support the video tag.
@@ -184,7 +199,19 @@ const Meme = (props) => {
               style={{ marginRight: "-25px" }}
             >
               <img
-                src={muted ? mutedIcon : unmutedIcon}
+                src={
+                  props.isMemePage
+                    ? iOS()
+                      ? !muted
+                        ? mutedIcon
+                        : unmutedIcon
+                      : muted
+                      ? mutedIcon
+                      : unmutedIcon
+                    : muted
+                    ? mutedIcon
+                    : unmutedIcon
+                }
                 alt="Mute/Unmute"
                 style={props.isMemePage && muteStyles}
               />
