@@ -40,15 +40,28 @@ const Profile = (props) => {
 
   useEffect(() => {
     (async () => {
-      const {
-        data: { user },
-      } = await api.get(`/user/${userId}`);
-      getMemes();
+      if (user) {
+        if (userId === user._id) {
+          getMemes();
+          setProfile(user);
+          return setLoading(false);
+        }
 
-      setProfile(user);
-      setLoading(false);
+        api
+          .get(`/user/${userId}`)
+          .then(({ data }) => {
+            getMemes();
+
+            setProfile(data.user);
+            setLoading(false);
+          })
+          .catch((err) => {
+            signOut();
+            history.push("/auth/1");
+          });
+      }
     })();
-  }, [userId]);
+  }, [user]);
 
   const [memesS, setMemes] = useState([]);
 
@@ -85,6 +98,21 @@ const Profile = (props) => {
       }
     })();
   }, [page]);
+
+  function iOS() {
+    return (
+      [
+        "iPad Simulator",
+        "iPhone Simulator",
+        "iPod Simulator",
+        "iPad",
+        "iPhone",
+        "iPod",
+      ].includes(navigator.platform) ||
+      // iPad on iOS 13 detection
+      (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    );
+  }
 
   return loading ? (
     <Loading center />
@@ -135,7 +163,10 @@ const Profile = (props) => {
               <Link key={meme._id} to={`/meme/${meme._id}`}>
                 {meme.isVideo ? (
                   <div className="video">
-                    <video muted="muted">
+                    <video
+                      muted="muted"
+                      style={{ background: iOS() && "black" }}
+                    >
                       <source src={meme.src} />
                       Your browser does not support the video tag.
                     </video>

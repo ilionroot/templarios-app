@@ -56,6 +56,8 @@ export const MemeMedia = styled.div`
       position: relative;
       height: fit-content;
       width: 100%;
+      height: 100%;
+      background: red;
     }
     img {
       position: absolute;
@@ -100,7 +102,7 @@ export const MemeDescription = styled.div`
   p {
     margin: 0 30px 0 15px;
     font-size: 1rem;
-    width: 75%;
+    width: 50%;
     white-space: nowrap;
     background: linear-gradient(
       to right,
@@ -124,8 +126,13 @@ export const MemeDescription = styled.div`
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
   }
   div {
-    width: auto;
+    width: fit-content;
+    margin: -10px;
     display: flex;
     align-self: center;
+  }
+
+  #controls {
+    margin-right: 0.5px;
   }
 `;

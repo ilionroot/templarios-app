@@ -10,6 +10,9 @@ import templateUser from "../../assets/user.png";
 import mutedIcon from "../../assets/muted.png";
 import unmutedIcon from "../../assets/unmuted.png";
 import playIcon from "../../assets/playVideo.png";
+import shareIcon from "../../assets/shareIcon.png";
+
+import axios from "axios";
 
 const downloadStyles = {
   position: "absolute",
@@ -19,17 +22,23 @@ const downloadStyles = {
 const muteStyles = {
   position: "absolute",
   right: 0,
+  marginRight: 140,
+};
+
+const shareStyles = {
+  position: "absolute",
+  right: 0,
   marginRight: 85,
 };
 
 const Meme = (props) => {
-  const [muted, setMuted] = useState(props.isVideoFirst);
+  const [muted, setMuted] = useState(props.isVideoFirst | props.isVideoSecond);
   const [loading, setLoading] = useState(true);
   const [userImageLoading, setUserImageLoading] = useState(true);
-  const [isPlayShowed, setIsPlayShowed] = useState(false);
+  const [isPlayShowed, setIsPlayShowed] = useState(true);
 
   const downloadFile = () => {
-    fetch({
+    axios({
       url: props.filename,
       method: "get",
       responseType: "blob",
@@ -55,6 +64,16 @@ const Meme = (props) => {
 
     setIsPlayShowed(true);
     return video.pause();
+  };
+
+  const shareMeme = async () => {
+    const shareData = {
+      title: "Sex Memes",
+      text: "Olha esse meme que engraçadinhoKKK🤣️😂️😏️\n",
+      url: `${props.filename}`,
+    };
+
+    await navigator.share(shareData);
   };
 
   return (
@@ -85,10 +104,14 @@ const Meme = (props) => {
                 }}
                 id="video-element"
                 loop={true}
-                autoPlay="0"
                 muted={muted}
-                style={{ display: !loading ? "initial" : "none" }}
+                style={{
+                  display: !loading ? "initial" : "none",
+                  width: "100%",
+                  height: "100%",
+                }}
                 playsInline
+                autoPlay={false}
               >
                 <source src={props.filename ? props.filename : templateMeme} />
                 Your browser does not support the video tag.
@@ -104,11 +127,10 @@ const Meme = (props) => {
               }}
             />
           )}
-
-          {loading && <Loading />}
           {isPlayShowed && (
             <img src={playIcon} alt="Play" className="bigPlay" />
           )}
+          {loading && <Loading />}
         </MemeMedia>
       ) : (
         <Link to={`/meme/${props.memeId}`}>
@@ -120,7 +142,7 @@ const Meme = (props) => {
                     setLoading(false);
                   }}
                   loop={true}
-                  autoPlay="0"
+                  autoPlay={props.isVideoFirst}
                   muted={muted}
                   style={{ display: !loading ? "initial" : "none" }}
                   playsInline
@@ -163,16 +185,23 @@ const Meme = (props) => {
             >
               <img
                 src={muted ? mutedIcon : unmutedIcon}
-                alt="Mute/Unmute icon"
+                alt="Mute/Unmute"
                 style={props.isMemePage && muteStyles}
               />
             </div>
           )}
+          <div onClick={shareMeme}>
+            <img
+              src={shareIcon}
+              alt="Share"
+              style={props.isMemePage && shareStyles}
+            />
+          </div>
           <div onClick={downloadFile}>
             <img
               src={downloadIcon}
-              alt="Download Icon"
-              style={props.isMemePage && downloadStyles}
+              alt="Download"
+              style={props.isMemePage ? downloadStyles : { marginLeft: 15 }}
             />
           </div>
         </div>

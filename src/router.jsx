@@ -21,8 +21,10 @@ const Router = () => {
           <Route exact path="/" component={Home} />
           <Route path="/auth/:isLogin" component={Authentication} />
           <Route path="/profile/:userId" component={Profile} />
+          <Route path="/me/:userId" component={Profile} />
           <Route path="/meme/:id" component={MemePage} />
           <Route path="/upload" component={Upload} />
+          <Route component={Home} />
         </Switch>
       </ContentContainer>
 

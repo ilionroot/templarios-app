@@ -17,7 +17,7 @@ const BottomBar = () => {
         </Link>
       </TabButton>
       <TabButton>
-        <Link to={`${user ? `/profile/${user._id}` : "auth/1"}`}>
+        <Link to={`${user ? `/me/${user._id}` : "auth/1"}`}>
           <img src={profileIcon} alt="Profile Tab" />
         </Link>
       </TabButton>
