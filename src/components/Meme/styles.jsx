@@ -56,6 +56,7 @@ export const MemeMedia = styled.div`
     video {
       position: relative;
       height: fit-content;
+      width: 100%;
     }
     img {
       position: absolute;

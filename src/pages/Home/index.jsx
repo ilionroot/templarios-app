@@ -106,7 +106,7 @@ const Home = () => {
               key={Math.random() * 10 * 1000}
               memeId={meme._id}
               isVideo={meme.isVideo}
-              isVideoFirst={i === 0}
+              isVideoFirst={(i === 0) | (i === 1)}
               userId={meme.id_user}
               userImg={meme.userImg}
               user={meme.user}
